@@ -359,4 +359,102 @@ findAccount2(accounts);
 let newMovement=[1000,5000,-799,5000];
 let isDeposits=newMovement.some(el=>el>0);
 console.log(isDeposits);
-//--------------------------creating an Array dynamically-------------------------
+//--------------------------reduce method usecases---------------------------------------
+// const allMovements=accounts.map(el=>el.movements).flat();
+const allMovements=accounts.flatMap(el=>el.movements);
+const depositSum=allMovements.filter(el=>el>0).reduce((acc,cur)=>acc+cur,0);
+const withDrawlSum=allMovements.filter(el=>el<0).reduce((acc,cur)=>acc+cur,0);
+console.log(allMovements);
+console.log(depositSum);
+console.log(withDrawlSum);
+//count number of deposits
+const depositNumbers=allMovements.filter(el=>el>0).reduce((count,cur)=>count+1,0)
+const withdrawlNumber=allMovements.reduce((count,cur)=>cur<0?count+1:count,0);
+console.log(depositNumbers);
+console.log(withdrawlNumber);
+//replacing the string characters
+const changeTitleCase=function(title){
+const exceptions=['an',"the",'a','for','let'];
+let changeTitle=title.toLowerCase().split(' ').map(el=>exceptions.includes(el)?el:el[0].toUpperCase()+el.slice(1)).join(' ');
+
+return changeTitle;
+
+
+}
+console.log(changeTitleCase('see am an the for with let the sum Rise In the WEST'));
+//------------------------------CODING CHALLENGE #4--------------------------------------------
+const dogs=[
+  {weight:22,curFood:250,owners:['Alice','Bob']},
+  {weight:8,curFood:200,owners:['Matilda']},
+  {weight:13,curFood:275,owners:['Sarah','John']},
+  {weight:32,curFood:340,owners:['Michael']},
+];
+//Task1
+dogs.forEach(function(el){
+el.recommendedFood=el.weight**0.75*28;
+})
+console.log(dogs);
+//Task2
+let sarahDog=dogs.find((el)=>el.owners.filter((acc)=>acc==='Sarah'?el:0));
+// let sarahDog=el.owners.find((own)=>own==='Sarah');
+if(sarahDog){
+if(sarahDog.curFood>sarahDog.recommendedFood){
+  console.log('Eating too much');
+}else{
+  console.log("Eating too little");
+}
+}
+//Task 3
+const ownersEatTooMuch=dogs.filter((dog)=>dog.curFood>dog.recommendedFood).flatMap((el)=>el.owners);
+console.log(ownersEatTooMuch);
+const ownersEatTooLittle=dogs.filter((dog)=>dog.curFood<dog.recommendedFood).flatMap((el)=>el.owners);
+console.log(ownersEatTooLittle);
+//Task 4
+console.log(`${ownersEatTooMuch.join(' and ')}'s dog eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dog eat too little!`);
+const recommendedDog=dogs.some((el)=>el.curFood===el.recommendedFood);
+console.log(recommendedDog);
+const okDog=dogs.some((el)=>el.curFood>0.1*el.recommendedFood || el.curFood<0.1*el.recommendedFood);
+console.log(okDog);
+
+const OkDogsArray=dogs.filter((el)=>{
+if(el.curFood>0.1*el.recommendedFood || el.curFood<0.1*el.recommendedFood){
+  return el;
+}})
+console.log(OkDogsArray);
+let sortedDogsArray=dogs.map((el)=>{
+  return el;
+}).sort((a,b)=>a.recommendedFood-b.recommendedFood);
+console.log(sortedDogsArray);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
